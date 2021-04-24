@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     const int INITAL_MAX_HEALTH = 100;
     const int INITIAL_MONEY = 100;
+    const int INITAL_MAX_GAS = 100;
+    const int INITIAL_GAS = 100;
 
     const int DEPTH_MULTIPLE = 25;
 
@@ -15,9 +17,15 @@ public class Player : MonoBehaviour
     public int health;
     [HideInInspector]
     public int money;
+    [HideInInspector]
     public int depth;
+    [HideInInspector]
+    public int maxGas;
+    [HideInInspector]
+    public int gas;
 
     HealthDisplay healthDisplay;
+    GasDisplay gasDisplay;
     MoneyDisplay moneyDisplay;
     DepthDisplay depthDisplay;
 
@@ -25,8 +33,11 @@ public class Player : MonoBehaviour
         maxHealth = INITAL_MAX_HEALTH;
         health = INITAL_MAX_HEALTH;
         money = INITIAL_MONEY;
+        maxGas = INITAL_MAX_GAS;
+        gas = INITIAL_GAS;
 
         healthDisplay = FindObjectOfType<HealthDisplay>();
+        gasDisplay = FindObjectOfType<GasDisplay>();
         moneyDisplay = FindObjectOfType<MoneyDisplay>();
         depthDisplay = FindObjectOfType<DepthDisplay>();
     }
@@ -34,18 +45,23 @@ public class Player : MonoBehaviour
     private void Start() {
         updateMoney(0);
         updateHealth(0);
+        updateGas(0);
     }
 
     public void processMineAction(TerrainSquare.TERRAIN_TYPE minedType) {
-        Debug.Log($"mined: {minedType}");
         var action = Config.instance.getMineAction(minedType);
         updateHealth(action.damage * -1);
         updateMoney(action.money);
     }
 
-    public void updateDepth(int y) {
+    public void setDepth(int y) {
         depth = Mathf.Max(depth, DEPTH_MULTIPLE * y);
         depthDisplay.updateDepth();
+    }
+
+    public void processDepth(int y) {
+        setDepth(y);
+        updateGas(-1 * TerrainGrid.gasConsumed(y));
     }
 
     private void updateHealth(int diff) {
@@ -55,6 +71,15 @@ public class Player : MonoBehaviour
         }
 
         healthDisplay.updateHealth();
+    }
+
+    private void updateGas(int diff) {
+        gas += diff;
+        if (gas <= 0) {
+            GameManager.instance.gameOver();
+        }
+
+        gasDisplay.updateGas();
     }
 
     private void updateMoney(int diff) {

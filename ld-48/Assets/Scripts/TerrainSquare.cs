@@ -150,7 +150,7 @@ public class TerrainSquare : MonoBehaviour
         if (isInitial) {
             type = TERRAIN_TYPE.EMPTY;
             state = STATE.EXCAVATED;
-            GameManager.instance.player.updateDepth(this.y);
+            GameManager.instance.player.setDepth(this.y);
             return;
         }
 
@@ -168,7 +168,7 @@ public class TerrainSquare : MonoBehaviour
 
     public void processType() {
         GameManager.instance.player.processMineAction(type);
-        GameManager.instance.player.updateDepth(y);
+        GameManager.instance.player.processDepth(y);
     }
 
     private void Update() {

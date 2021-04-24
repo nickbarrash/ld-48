@@ -59,4 +59,8 @@ public class TerrainGrid : MonoBehaviour {
             }
         }
     }
+
+    public static int gasConsumed(int y) {
+        return y;
+    }
 }
