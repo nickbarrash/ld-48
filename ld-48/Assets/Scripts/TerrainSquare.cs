@@ -25,13 +25,26 @@ public class TerrainSquare : MonoBehaviour
         DIAMOND
     }
 
+    public HashSet<TERRAIN_TYPE> DANGEROUS = new HashSet<TERRAIN_TYPE> {
+        TERRAIN_TYPE.DENSE_ROCK,
+        TERRAIN_TYPE.GAS_POCKET,
+    };
+
+    public HashSet<TERRAIN_TYPE> LOOT = new HashSet<TERRAIN_TYPE> {
+        TERRAIN_TYPE.COPPER,
+        TERRAIN_TYPE.SILVER,
+        TERRAIN_TYPE.GOLD,
+        TERRAIN_TYPE.PLATINUM,
+        TERRAIN_TYPE.DIAMOND
+    };
+
     public TerrainGrid grid;
     public int x;
     public int y;
-    int displayValue;
     public TERRAIN_TYPE type;
     public STATE state;
-    public TerrainInfoTiles infoTiles;
+    //public TerrainInfoTiles infoTiles;
+    public DisplayValueManager displayValue;
 
     public TMP_Text debugText;
     public GameObject excavated;
@@ -79,26 +92,22 @@ public class TerrainSquare : MonoBehaviour
         return neighbors().Where(n => n.state != STATE.EXCAVATED);
     }
 
-    public void setTerrainInfo() {
+    public void setDisplayValues() {
         if (!isValueDisplayable()) {
-            infoTiles.showTileInfo(false);
+            displayValue.hide();
             return;
         }
 
-        infoTiles.showTileInfo(true);
+        displayValue.setValues(
+            unexcavatedNeighbors().Where(t => DANGEROUS.Contains(t.type)).Count(),
+            unexcavatedNeighbors().Where(t => LOOT.Contains(t.type)).Count()
+        );
 
-        var types = new Dictionary<TERRAIN_TYPE, int>();
-        foreach (var n in unexcavatedNeighbors()) {
-            if (!types.ContainsKey(n.type)) {
-                types[n.type] = 0;
-            }
-            types[n.type]++;
-        }
-        infoTiles.setTerrainInfo(types.AsEnumerable());
+        displayValue.showValue(GameManager.instance.displayDanger);
     }
 
     public void setAffordances() {
-        setTerrainInfo();
+        setDisplayValues();
         setExcavatedAffordances(state == STATE.EXCAVATED);
         setButtonEnabled();
         setDebug();
@@ -118,7 +127,7 @@ public class TerrainSquare : MonoBehaviour
     }
 
     private bool isValueDisplayable() {
-        return state == STATE.EXCAVATED && accessibleNeighbors().FirstOrDefault(n => n.state == STATE.UNEXCAVATED) != null;
+        return state == STATE.EXCAVATED && neighbors().FirstOrDefault(n => n.state == STATE.UNEXCAVATED) != null;
     }
 
     private bool isButtonEnabled() {
@@ -141,6 +150,7 @@ public class TerrainSquare : MonoBehaviour
         if (isInitial) {
             type = TERRAIN_TYPE.EMPTY;
             state = STATE.EXCAVATED;
+            GameManager.instance.player.updateDepth(this.y);
             return;
         }
 
@@ -157,10 +167,12 @@ public class TerrainSquare : MonoBehaviour
     }
 
     public void processType() {
-        Debug.Log($"Excavated {type}");
+        GameManager.instance.player.processMineAction(type);
+        GameManager.instance.player.updateDepth(y);
     }
 
     private void Update() {
+        // TODO: move oscilation
         if (selectButton.gameObject.activeSelf) {
             tmpButtonColorBlock = selectButton.colors;
             tmpButtonColorBlock.normalColor = Color.Lerp(COLOR_OSCILATE_2, COLOR_OSCILATE_1, Mathf.Sin(Time.time * OSCILATION_RATE));

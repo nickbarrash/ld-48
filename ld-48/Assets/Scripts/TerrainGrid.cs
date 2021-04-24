@@ -11,7 +11,7 @@ public class TerrainGrid : MonoBehaviour {
     public TerrainSquare[,] grid;
 
     HashSet<string> initiallyExcavated = new HashSet<string> {
-        $"15,0"//, $"15,1", $"15,2", $"15,3", $"14,2", $"16,3",
+        $"15,0", $"15,1", $"15,2", $"15,3", $"14,2", $"16,3",
     };
 
     public TerrainSquare getSquare(int x, int y) {
