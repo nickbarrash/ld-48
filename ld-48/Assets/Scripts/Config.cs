@@ -14,6 +14,7 @@ public class MineAction {
     public TerrainSquare.TERRAIN_TYPE type;
     public int damage;
     public int money;
+    public Enemy enemy;
 }
 
 public class Config : MonoBehaviour

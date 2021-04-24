@@ -16,14 +16,30 @@ public class TerrainSquare : MonoBehaviour
     [Serializable]
     public enum TERRAIN_TYPE {
         EMPTY,
+
         DENSE_ROCK,
         GAS_POCKET,
+
         COPPER,
         SILVER,
         GOLD,
         PLATINUM,
-        DIAMOND
+        DIAMOND,
+
+        SPIDER,
+        ROCKMAN,
+        WORM,
+        MR_NATAS,
+        BALROG
     }
+
+    public HashSet<TERRAIN_TYPE> COMBAT = new HashSet<TERRAIN_TYPE> {
+        TERRAIN_TYPE.SPIDER,
+        TERRAIN_TYPE.ROCKMAN,
+        TERRAIN_TYPE.WORM,
+        TERRAIN_TYPE.MR_NATAS,
+        TERRAIN_TYPE.BALROG
+    };
 
     public HashSet<TERRAIN_TYPE> DANGEROUS = new HashSet<TERRAIN_TYPE> {
         TERRAIN_TYPE.DENSE_ROCK,

@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public int gas;
 
+    List<Attack> attacks = new List<Attack> {
+        Attack.drill()
+    };
+
     HealthDisplay healthDisplay;
     GasDisplay gasDisplay;
     MoneyDisplay moneyDisplay;
