@@ -68,14 +68,15 @@ public class TerrainSquare : MonoBehaviour
                 if (xOff != 0 || yOff != 0) {
                     var neighbor = grid.getSquare(x + xOff, y + yOff);
                     if (neighbor != null) {
-                        Debug.Log($"neighbors() >>> {transform.name}, {neighbor.type}, {neighbor.transform.name}, ({neighbor.x}, {neighbor.y}) // ({x + xOff}, {y + yOff})");
                         yield return neighbor;
-                    } else {
-                        Debug.Log($"neighbors() >>> {transform.name}, NULL!! ({x + xOff}, {y + yOff})");
                     }
                 }
             }
         }
+    }
+
+    public IEnumerable<TerrainSquare> unexcavatedNeighbors() {
+        return neighbors().Where(n => n.state != STATE.EXCAVATED);
     }
 
     public void setTerrainInfo() {
@@ -87,12 +88,11 @@ public class TerrainSquare : MonoBehaviour
         infoTiles.showTileInfo(true);
 
         var types = new Dictionary<TERRAIN_TYPE, int>();
-        foreach (var n in neighbors()) {
+        foreach (var n in unexcavatedNeighbors()) {
             if (!types.ContainsKey(n.type)) {
                 types[n.type] = 0;
             }
             types[n.type]++;
-            Debug.Log($"setTerrainInfo... {transform.name}, {n.type}, {types[n.type]}, ({n.x}, {n.y})");
         }
         infoTiles.setTerrainInfo(types.AsEnumerable());
     }
@@ -140,12 +140,12 @@ public class TerrainSquare : MonoBehaviour
 
         if (isInitial) {
             type = TERRAIN_TYPE.EMPTY;
-            setState(STATE.EXCAVATED);
+            state = STATE.EXCAVATED;
             return;
         }
 
         type = newType;
-        state = STATE.EXCAVATED;
+        state = STATE.UNEXCAVATED;
     }
 
     public void excavate() {

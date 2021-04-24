@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TerrainGrid : MonoBehaviour {
     public const int GRID_X = 30;
-    public const int GRID_Y = 30;
+    public const int GRID_Y = 31;
 
     public bool debugMode = false;
     public GameObject terrainPrefab;
@@ -15,7 +15,7 @@ public class TerrainGrid : MonoBehaviour {
     };
 
     public TerrainSquare getSquare(int x, int y) {
-        if (x < 0 || x >= grid.GetLength(0) || y < 0 || y > grid.GetLength(1)) {
+        if (x < 0 || x >= grid.GetLength(0) || y < 0 || y >= grid.GetLength(1)) {
             return null;
         }
         return grid[x, y];
