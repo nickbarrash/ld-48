@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class TerrainGrid : MonoBehaviour {
     public const int GRID_X = 30;
-    public const int GRID_Y = 300;
-    public const int X_OFF = GRID_X / 2;
-    public const int Y_OFF = -4;
+    public const int GRID_Y = 30;
 
     public bool debugMode = false;
     public GameObject terrainPrefab;
@@ -38,18 +36,25 @@ public class TerrainGrid : MonoBehaviour {
         grid = new TerrainSquare[GRID_X, GRID_Y];
 
         for(int x = 0; x < grid.GetLength(0); x++) {
-            for (int y = 0; y < grid.GetLength(0); y++) {
+            for (int y = 0; y < grid.GetLength(1); y++) {
                 GameObject newObj = Instantiate(terrainPrefab, transform);
                 newObj.name = $"TerrainSquare_{x}_{y}";
                 grid[x, y] = newObj.GetComponent<TerrainSquare>();
                 grid[x, y].grid = this;
-                grid[x, y].spawn(type[Random.Range(0, type.Length)], x, y, initiallyExcavated.Contains($"{x},{y}"));
+                grid[x, y].x = x;
+                grid[x, y].y = y;
                 grid[x, y].transform.position = new Vector3(x, y * -1, 0);
             }
         }
 
         for (int x = 0; x < grid.GetLength(0); x++) {
-            for (int y = 0; y < grid.GetLength(0); y++) {
+            for (int y = 0; y < grid.GetLength(1); y++) {
+                grid[x, y].spawn(type[Random.Range(0, type.Length)], x, y, initiallyExcavated.Contains($"{x},{y}"));
+            }
+        }
+
+        for (int x = 0; x < grid.GetLength(0); x++) {
+            for (int y = 0; y < grid.GetLength(1); y++) {
                 grid[x, y].setAffordances();
             }
         }

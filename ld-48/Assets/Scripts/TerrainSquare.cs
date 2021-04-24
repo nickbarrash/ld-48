@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TerrainSquare : MonoBehaviour
 {
@@ -11,15 +13,16 @@ public class TerrainSquare : MonoBehaviour
         UNEXCAVATED
     }
 
+    [Serializable]
     public enum TERRAIN_TYPE {
-        EMPTY = 0,
-        DENSE_ROCK = -7,
-        GAS_POCKET = -13,
-        COPPER = 2,
-        SILVER = 5,
-        GOLD = 10,
-        PLATINUM = 20,
-        DIAMOND = 100
+        EMPTY,
+        DENSE_ROCK,
+        GAS_POCKET,
+        COPPER,
+        SILVER,
+        GOLD,
+        PLATINUM,
+        DIAMOND
     }
 
     public TerrainGrid grid;
@@ -28,12 +31,18 @@ public class TerrainSquare : MonoBehaviour
     int displayValue;
     public TERRAIN_TYPE type;
     public STATE state;
+    public TerrainInfoTiles infoTiles;
 
-    public TMP_Text valueText;
+    public TMP_Text debugText;
     public GameObject excavated;
     public GameObject unexcavated;
-    public GameObject selectButton;
+    public Button selectButton;
 
+    public Color COLOR_OSCILATE_1;
+    public Color COLOR_OSCILATE_2;
+    public float OSCILATION_RATE;
+
+    ColorBlock tmpButtonColorBlock;
 
     public IEnumerable<TerrainSquare> accessibleNeighbors() {
         if (grid.getSquare(x + 1, y) != null) {
@@ -59,40 +68,47 @@ public class TerrainSquare : MonoBehaviour
                 if (xOff != 0 || yOff != 0) {
                     var neighbor = grid.getSquare(x + xOff, y + yOff);
                     if (neighbor != null) {
+                        Debug.Log($"neighbors() >>> {transform.name}, {neighbor.type}, {neighbor.transform.name}, ({neighbor.x}, {neighbor.y}) // ({x + xOff}, {y + yOff})");
                         yield return neighbor;
+                    } else {
+                        Debug.Log($"neighbors() >>> {transform.name}, NULL!! ({x + xOff}, {y + yOff})");
                     }
                 }
             }
         }
     }
 
-    public int getValue() {
-        return state == STATE.EXCAVATED ? 0 : (int)type;
-    }
-
-    public int getDisplayValue() {
-        var displayVal = 0;
-        foreach (var n in accessibleNeighbors()) {
-            displayVal += n.getValue();
+    public void setTerrainInfo() {
+        if (!isValueDisplayable()) {
+            infoTiles.showTileInfo(false);
+            return;
         }
-        return displayVal;
+
+        infoTiles.showTileInfo(true);
+
+        var types = new Dictionary<TERRAIN_TYPE, int>();
+        foreach (var n in neighbors()) {
+            if (!types.ContainsKey(n.type)) {
+                types[n.type] = 0;
+            }
+            types[n.type]++;
+            Debug.Log($"setTerrainInfo... {transform.name}, {n.type}, {types[n.type]}, ({n.x}, {n.y})");
+        }
+        infoTiles.setTerrainInfo(types.AsEnumerable());
     }
 
     public void setAffordances() {
-        setValueText();
+        setTerrainInfo();
         setExcavatedAffordances(state == STATE.EXCAVATED);
         setButtonEnabled();
+        setDebug();
     }
 
-    private void setValueText() {
-        if (grid.debugMode) {
-            valueText.text = $"{getValue()}";
+    private void setDebug() {
+        if (GameManager.instance.DEBUG) {
+            debugText.text = $"{type}";
         } else {
-            if (isValueDisplayable()) {
-                valueText.text = $"{getDisplayValue()}";
-            } else {
-                valueText.text = $"";
-            }
+            debugText.text = "";
         }
     }
 
@@ -102,7 +118,7 @@ public class TerrainSquare : MonoBehaviour
     }
 
     private bool isValueDisplayable() {
-        return state == STATE.EXCAVATED && neighbors().FirstOrDefault(n => n.state == STATE.UNEXCAVATED) != null;
+        return state == STATE.EXCAVATED && accessibleNeighbors().FirstOrDefault(n => n.state == STATE.UNEXCAVATED) != null;
     }
 
     private bool isButtonEnabled() {
@@ -110,7 +126,7 @@ public class TerrainSquare : MonoBehaviour
     }
 
     public void setButtonEnabled() {
-        selectButton.SetActive(isButtonEnabled());
+        selectButton.gameObject.SetActive(isButtonEnabled());
     }
 
     public void setState(STATE newState) {
@@ -129,7 +145,7 @@ public class TerrainSquare : MonoBehaviour
         }
 
         type = newType;
-        setState(STATE.UNEXCAVATED);
+        state = STATE.EXCAVATED;
     }
 
     public void excavate() {
@@ -142,5 +158,13 @@ public class TerrainSquare : MonoBehaviour
 
     public void processType() {
         Debug.Log($"Excavated {type}");
+    }
+
+    private void Update() {
+        if (selectButton.gameObject.activeSelf) {
+            tmpButtonColorBlock = selectButton.colors;
+            tmpButtonColorBlock.normalColor = Color.Lerp(COLOR_OSCILATE_2, COLOR_OSCILATE_1, Mathf.Sin(Time.time * OSCILATION_RATE));
+            selectButton.colors = tmpButtonColorBlock;
+        }
     }
 }
