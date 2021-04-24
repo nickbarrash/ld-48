@@ -5,17 +5,14 @@ using UnityEngine;
 public class TerrainInfoTile : MonoBehaviour
 {
     public TerrainInfo A;
-    public TerrainInfo B;
 
     float FADE_TIME = 0.5f;
     float fadeProgress;
     bool fading = false;
-    TerrainInfo currentlyShowing;
 
     Vector3 POSITION_OFFSETS = new Vector3(112.5f, 112.5f, 0);
 
     private void Awake() {
-        currentlyShowing = B;
         snap(A);
     }
 
@@ -24,7 +21,6 @@ public class TerrainInfoTile : MonoBehaviour
     }
 
     public void setPosition(int index, int count) {
-        //Debug.Log($"{transform.parent.parent.parent.gameObject.name}/{gameObject.name} setPosition ({index}, {count})");
         if (count <= 1) {
             transform.localPosition = new Vector3(0, 0, 0);
         } else if (count == 2) {
@@ -46,13 +42,13 @@ public class TerrainInfoTile : MonoBehaviour
     }
 
     public void setScale(int index, int count) {
-        //Debug.Log($"{transform.parent.parent.parent.gameObject.name}/{gameObject.name} setScale ({index}, {count})");
         var isfullWidth = count <= 2 || count == 3 && index == 0;
         A.setScale(isfullWidth, count == 1);
         B.setScale(isfullWidth, count == 1);
     }
 
     public void startFade(TerrainInfo fadeTo) {
+        Debug.Log($"{transform.parent.parent.parent.name} fade to: {transform.name}/{fadeTo.transform.name} << {Time.time}");
         if (fadeTo == currentlyShowing) {
             // no fade necessary
             return;
@@ -64,6 +60,7 @@ public class TerrainInfoTile : MonoBehaviour
     }
 
     public void snap(TerrainInfo snapTo) {
+        Debug.Log($"{transform.parent.parent.parent.name} snap to: {transform.name}/{snapTo.transform.name} << {Time.time}");
         if (snapTo == currentlyShowing) {
             // no snap necessary
             return;

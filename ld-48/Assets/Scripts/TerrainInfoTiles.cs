@@ -23,11 +23,6 @@ public class TerrainInfoTiles : MonoBehaviour
     public void setTerrainInfo(IEnumerable<KeyValuePair<TerrainSquare.TERRAIN_TYPE, int>> newNeighborInfos) {
         neighborInfos = newNeighborInfos.ToList();
 
-        foreach (var kv in neighborInfos) {
-            Debug.Log($"{transform.parent.parent.name} - {kv.Key}: {kv.Value}");
-        }
-        Debug.Log($"{transform.parent.parent.name} - infos: {neighborInfos.Count}, usable: {usableTiles()}");
-
         // setup tile location
         for (int i = 0; i < usableTiles(); i++) {
             tiles[i].setPosition(i, usableTiles());
