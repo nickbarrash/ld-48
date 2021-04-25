@@ -29,7 +29,6 @@ public class TerrainSquare : MonoBehaviour
         SPIDER,
         ROCKMAN,
         WORM,
-        MR_NATAS,
         BALROG
     }
 
@@ -37,7 +36,6 @@ public class TerrainSquare : MonoBehaviour
         TERRAIN_TYPE.SPIDER,
         TERRAIN_TYPE.ROCKMAN,
         TERRAIN_TYPE.WORM,
-        TERRAIN_TYPE.MR_NATAS,
         TERRAIN_TYPE.BALROG
     };
 
@@ -48,7 +46,6 @@ public class TerrainSquare : MonoBehaviour
         TERRAIN_TYPE.SPIDER,
         TERRAIN_TYPE.ROCKMAN,
         TERRAIN_TYPE.WORM,
-        TERRAIN_TYPE.MR_NATAS,
         TERRAIN_TYPE.BALROG
     };
 
@@ -144,7 +141,7 @@ public class TerrainSquare : MonoBehaviour
 
     private void setDebug() {
         if (GameManager.instance.DEBUG) {
-            debugText.text = $"{type}";
+            debugText.text = $"{type} ({x},{y})";
         } else {
             debugText.text = "";
         }
@@ -217,7 +214,7 @@ public class TerrainSquare : MonoBehaviour
     }
 
     public void scan() {
-        if (isScanable() && GameManager.instance.player.scanCount > 0) {
+        if (!isScanned && isScanable() && GameManager.instance.player.scanCount > 0) {
             isScanned = true;
             setAffordances();
             GameManager.instance.player.updateScans(-1);
