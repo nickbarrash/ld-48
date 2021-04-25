@@ -42,7 +42,6 @@ public class AttacksCombatDisplay : MonoBehaviour
 
     public AttackDisplay getRandomAttack() {
         var attackList = attacks.Where(a => !a.isOnCooldown()).ToList();
-        Debug.Log($"avaiable attacks: {attackList.Count}");
         if (attackList.Count <= 0) {
             return null;
         }
