@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     private void Start() {
         grid.generate();
         cameraManager.setPosition(X_OFF, Y_OFF);
+        combatDisplay.gameObject.SetActive(false);
     }
 
     public void setDisplayTypeBio() {
@@ -69,6 +70,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("GAME OVER!!");
     }
 
+    public void startCombat(Enemy enemy) {
+        combatDisplay.startCombat(enemy);
+    }
+
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             mouseDownPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -89,9 +94,5 @@ public class GameManager : MonoBehaviour
                 mainCam.orthographicSize = 15;
             }
         }
-    }
-
-    public void startCombat(Enemy enemy) {
-        combatDisplay.startCombat(enemy);
     }
 }
