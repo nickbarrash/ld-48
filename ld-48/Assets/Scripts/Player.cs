@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         Attack.drill()
     };
 
+
     HealthDisplay healthDisplay;
     GasDisplay gasDisplay;
     MoneyDisplay moneyDisplay;
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour
         updateGas(-1 * TerrainGrid.gasConsumed(y));
     }
 
-    private void updateHealth(int diff) {
+    public void updateHealth(int diff) {
         health += diff;
         if (health <= 0) {
             GameManager.instance.gameOver();

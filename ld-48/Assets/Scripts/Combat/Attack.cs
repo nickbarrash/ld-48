@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Attack
 {
-    public string name;
+    public string attackName;
     public string description;
     public int enemyDamage;
     public int selfDamage;
@@ -16,7 +16,7 @@ public class Attack
 
     public static Attack bite() {
         return new Attack {
-            name = "Bite",
+            attackName = "Bite",
             description = "Damage enemy",
             enemyDamage = 5,
             selfDamage = 0,
@@ -28,7 +28,7 @@ public class Attack
 
     public static Attack drill() {
         return new Attack {
-            name = "Drill",
+            attackName = "Drill",
             description = "Damage enemy, if the enemy is killed, this attacks' damage is increased by 1",
             enemyDamage = 10,
             selfDamage = 0,
@@ -40,7 +40,7 @@ public class Attack
 
     public static Attack earthquake() {
         return new Attack {
-            name = "Earthquake",
+            attackName = "Earthquake",
             description = "Increase attack damage of all combatants by 4x for 3 turns (enemies included!)",
             enemyDamage = 0,
             selfDamage = 0,
@@ -58,7 +58,7 @@ public class Attack
 
     public static Attack liquefaction() {
         return new Attack {
-            name = "Earthquake",
+            attackName = "Earthquake",
             description = "Reduce enemy damage by 5x for 3 turns",
             enemyDamage = 0,
             selfDamage = 0,

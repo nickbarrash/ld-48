@@ -8,8 +8,8 @@ public class ChallengerDisplay : MonoBehaviour
     public bool isEnemy;
     Enemy enemy;
 
-    int currentEnemyHealth;
-    float attackMultiplier;
+    public int currentEnemyHealth;
+    public float attackMultiplier;
 
     public AttacksCombatDisplay attacks;
 
@@ -19,8 +19,37 @@ public class ChallengerDisplay : MonoBehaviour
 
     List<StatusEffect> activeEffects = new List<StatusEffect>();
 
+    public void attackEnemy(Attack attack, float multiplier) {
+        currentEnemyHealth -= (int)(attack.enemyDamage * multiplier);
+        health.updateHealth(enemy.health, currentEnemyHealth);
+
+        if (currentEnemyHealth <= 0) {
+            FindObjectOfType<CombatDisplay>().playerVictory();
+        }
+    }
+
+    public void attackPlayer(Attack attack, float multiplier) {
+        GameManager.instance.player.updateHealth(-1 * (int)(attack.enemyDamage * multiplier));
+        health.updateHealth(GameManager.instance.player.maxHealth, GameManager.instance.player.health);
+    }
+
+    public void applyStatuses(Attack attack, bool isSelf) {
+        //if (attack.effects != null && attack.effects.Count > 0) {
+        //    activeEffects.Add(new StatusEffect {
+        //        activeTurns = attack.effects[0].activeTurns,
+        //        selfAttackMultiple = attack.effects[0].enemyAttackMultiple
+        //    });
+        //}
+    }
+
+    public void cooldown() {
+        attacks.cooldown();
+        // TODO: status effects
+    }
+
     public void initEnemy(Enemy enemy) {
         isEnemy = true;
+        this.enemy = enemy;
         attacks.init(enemy.attacks, true);
         activeEffects = new List<StatusEffect>();
 
@@ -47,5 +76,9 @@ public class ChallengerDisplay : MonoBehaviour
         }
 
         attackMultipleValue.text = attackMultiplier.ToString();
+    }
+
+    public void setTurn(bool isMyTurn) {
+        attacks.setTurn(isMyTurn);
     }
 }

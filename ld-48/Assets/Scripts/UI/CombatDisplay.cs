@@ -1,15 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CombatDisplay : MonoBehaviour
 {
+    float ENEMY_ATTACK_DELAY = 0.5f;
+
     public ChallengerDisplay playerDisplay;
     public ChallengerDisplay enemyDisplay;
+
+    bool isPlayersTurn;
 
     public void startCombat(Enemy enemy) {
         gameObject.SetActive(true);
         enemyDisplay.initEnemy(enemy);
         playerDisplay.initPlayer();
+
+        isPlayersTurn = true;
+        setTurn();
+    }
+
+    public void setTurn() {
+        playerDisplay.setTurn(isPlayersTurn);
+        enemyDisplay.setTurn(false);
+    }
+
+    public void attack(Attack attack, bool isHitPlayer) {
+        if (!isHitPlayer) {
+            if (attack != null) {
+                playerDisplay.applyStatuses(attack, true);
+                enemyDisplay.applyStatuses(attack, false);
+                enemyDisplay.attackEnemy(attack, playerDisplay.attackMultiplier);
+            }
+            playerDisplay.cooldown();
+        } else {
+            if (attack != null) {
+                playerDisplay.applyStatuses(attack, false);
+                enemyDisplay.applyStatuses(attack, true);
+                playerDisplay.attackPlayer(attack, enemyDisplay.attackMultiplier);
+            }
+        }
+
+        isPlayersTurn = !isPlayersTurn;
+        setTurn();
+
+        if (!isPlayersTurn && enemyDisplay.currentEnemyHealth > 0) {
+            enemyAttack();
+        }
+    }
+
+    public void enemyAttack() {
+        StartCoroutine(delayedEnemyAttack());
+    }
+
+    private IEnumerator delayedEnemyAttack() {
+        yield return new WaitForSeconds(ENEMY_ATTACK_DELAY);
+        attack(enemyDisplay.attacks.getRandomAttack(), true);
+    }
+
+    public void playerVictory() {
+        gameObject.SetActive(false);
+        GameManager.instance.player.attacks.First(a => a.attackName == "Drill").enemyDamage += 1;
     }
 }

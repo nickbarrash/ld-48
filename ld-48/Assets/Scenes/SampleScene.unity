@@ -2371,7 +2371,7 @@ MonoBehaviour:
   maxGas: 0
   gas: 0
   attacks:
-  - name: Drill
+  - attackName: Drill
     description: Damage enemy, if the enemy is killed, this attacks' damage is increased
       by 1
     enemyDamage: 10
@@ -2814,7 +2814,7 @@ MonoBehaviour:
     - enemyName: Spider
       health: 30
       attacks:
-      - name: Bite
+      - attackName: Bite
         description: A simple attack that does damage
         enemyDamage: 5
         selfDamage: 0
