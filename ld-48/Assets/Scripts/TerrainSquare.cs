@@ -217,6 +217,7 @@ public class TerrainSquare : MonoBehaviour
         if (!isScanned && isScanable() && GameManager.instance.player.scanCount > 0) {
             isScanned = true;
             setAffordances();
+            ToastManager.instance.showMessage($"Scanned {Config.instance.getTerrainName(type)}");
             GameManager.instance.player.updateScans(-1);
         }
     }
@@ -226,6 +227,7 @@ public class TerrainSquare : MonoBehaviour
             GameManager.instance.player.processDepth(y);
             GameManager.instance.player.updateBombs(-1);
             setState(STATE.EXCAVATED);
+            ToastManager.instance.showMessage($"Destroyed {Config.instance.getTerrainName(type)}");
             updateNeighborAffordances();
         }
     }

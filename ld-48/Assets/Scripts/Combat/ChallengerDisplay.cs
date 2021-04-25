@@ -7,7 +7,7 @@ using UnityEngine;
 public class ChallengerDisplay : MonoBehaviour
 {
     public bool isEnemy;
-    Enemy enemy;
+    public Enemy enemy;
 
     public int currentEnemyHealth;
     public float attackMultiplier;

@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     public CLICK_ACTION_TYPE actionType = CLICK_ACTION_TYPE.EXCAVATE;
 
-    public const int X_OFF = TerrainGrid.GRID_X / 2;
-    public const int Y_OFF = -2;
+    public const int X_OFF = TerrainGrid.GRID_X / 2 + 1;
+    public const int Y_OFF = -3;
 
     public bool DEBUG;
 

@@ -65,6 +65,17 @@ public class Player : MonoBehaviour
 
     public void processMineAction(TerrainSquare.TERRAIN_TYPE minedType) {
         var action = Config.instance.getMineAction(minedType);
+
+        if (action.enemy.Count > 0) {
+            //ToastManager.instance.showMessage($"Encountered {Config.instance.getTerrainName(minedType)}");
+        } else if (action.damage > 0) {
+            ToastManager.instance.showMessage($"Excavated {Config.instance.getTerrainName(minedType)}, took {action.damage} damage");
+        } else if (action.money > 0) {
+            ToastManager.instance.showMessage($"Excavated {Config.instance.getTerrainName(minedType)}, earned ${action.money}");
+        } else {
+            ToastManager.instance.showMessage("Excavated Dirt");
+        }
+
         updateHealth(action.damage * -1);
         updateMoney(action.money);
     }

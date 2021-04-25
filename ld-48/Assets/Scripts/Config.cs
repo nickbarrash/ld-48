@@ -36,6 +36,21 @@ public class Config : MonoBehaviour
     Dictionary<TerrainSquare.TERRAIN_TYPE, Color> terrainColorMap = new Dictionary<TerrainSquare.TERRAIN_TYPE, Color>();
     Dictionary<TerrainSquare.TERRAIN_TYPE, MineAction> terrainActionMap = new Dictionary<TerrainSquare.TERRAIN_TYPE, MineAction>();
 
+    Dictionary<TerrainSquare.TERRAIN_TYPE, string> terrainNameMap = new Dictionary<TerrainSquare.TERRAIN_TYPE, string> {
+        { TerrainSquare.TERRAIN_TYPE.BALROG, "Balrog" },
+        { TerrainSquare.TERRAIN_TYPE.COPPER, "Copper" },
+        { TerrainSquare.TERRAIN_TYPE.DENSE_ROCK, "Dense Rock" },
+        { TerrainSquare.TERRAIN_TYPE.DIAMOND, "Diamond" },
+        { TerrainSquare.TERRAIN_TYPE.EMPTY, "Dirt" },
+        { TerrainSquare.TERRAIN_TYPE.GAS_POCKET, "Gas Pocket" },
+        { TerrainSquare.TERRAIN_TYPE.GOLD, "Gold" },
+        { TerrainSquare.TERRAIN_TYPE.PLATINUM, "Platinum" },
+        { TerrainSquare.TERRAIN_TYPE.ROCKMAN, "Rockman" },
+        { TerrainSquare.TERRAIN_TYPE.SILVER, "Silver" },
+        { TerrainSquare.TERRAIN_TYPE.SPIDER, "Spider" },
+        { TerrainSquare.TERRAIN_TYPE.WORM, "Worm" },
+    };
+
     public static Config instance;
 
     private void Awake() {
@@ -61,5 +76,9 @@ public class Config : MonoBehaviour
 
     public MineAction getMineAction(TerrainSquare.TERRAIN_TYPE type) {
         return terrainActionMap[type];
+    }
+
+    public string getTerrainName(TerrainSquare.TERRAIN_TYPE type) {
+        return terrainNameMap[type];
     }
 }

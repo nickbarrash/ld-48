@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class StoreDisplay : MonoBehaviour
 {
-    int BOMB_PRICE = 1000;
+    int BOMB_PRICE = 500;
     int SCAN_PRICE = 200;
     int REPAIR_PRICE = 25;
     int HULL_UPGRADE_PRICE = 150;
-    int EARTHQUAKE_PRICE = 16000;
-    int LIQUEFACTION_PRICE = 5000;
+    int EARTHQUAKE_PRICE = 10000;
+    int LIQUEFACTION_PRICE = 4000;
 
     bool purchasedEarthquake = false;
     bool purchasedLiquefaction = false;
