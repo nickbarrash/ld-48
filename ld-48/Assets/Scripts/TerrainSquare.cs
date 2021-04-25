@@ -197,7 +197,7 @@ public class TerrainSquare : MonoBehaviour
         // TODO: move oscilation
         if (selectButton.gameObject.activeSelf) {
             tmpButtonColorBlock = selectButton.colors;
-            tmpButtonColorBlock.normalColor = Color.Lerp(COLOR_OSCILATE_2, COLOR_OSCILATE_1, Mathf.Sin(Time.time * OSCILATION_RATE));
+            tmpButtonColorBlock.normalColor = Color.Lerp(COLOR_OSCILATE_2, COLOR_OSCILATE_1, (Mathf.Sin(Time.time * OSCILATION_RATE) + 1) / 2);
             selectButton.colors = tmpButtonColorBlock;
         }
     }

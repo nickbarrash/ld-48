@@ -6,8 +6,6 @@ public class Player : MonoBehaviour
 {
     const int INITAL_MAX_HEALTH = 100;
     const int INITIAL_MONEY = 100;
-    const int INITAL_MAX_GAS = 100;
-    const int INITIAL_GAS = 100;
 
     const int DEPTH_MULTIPLE = 25;
 
@@ -19,10 +17,6 @@ public class Player : MonoBehaviour
     public int money;
     [HideInInspector]
     public int depth;
-    [HideInInspector]
-    public int maxGas;
-    [HideInInspector]
-    public int gas;
 
     public List<Attack> attacks = new List<Attack> {
         Attack.drill()
@@ -37,8 +31,6 @@ public class Player : MonoBehaviour
         maxHealth = INITAL_MAX_HEALTH;
         health = INITAL_MAX_HEALTH;
         money = INITIAL_MONEY;
-        maxGas = INITAL_MAX_GAS;
-        gas = INITIAL_GAS;
 
         healthDisplay = GameObject.Find("HUD/PlayerAttributesSection/HealthSection").GetComponent<HealthDisplay>();
         gasDisplay = FindObjectOfType<GasDisplay>();
@@ -49,7 +41,6 @@ public class Player : MonoBehaviour
     private void Start() {
         updateMoney(0);
         updateHealth(0);
-        updateGas(0);
     }
 
     public void processMineAction(TerrainSquare.TERRAIN_TYPE minedType) {
@@ -65,7 +56,6 @@ public class Player : MonoBehaviour
 
     public void processDepth(int y) {
         setDepth(y);
-        updateGas(-1 * TerrainGrid.gasConsumed(y));
     }
 
     public void updateHealth(int diff) {
@@ -75,15 +65,6 @@ public class Player : MonoBehaviour
         }
 
         healthDisplay.updateHealth(maxHealth, health);
-    }
-
-    public void updateGas(int diff) {
-        gas += diff;
-        if (gas <= 0) {
-            GameManager.instance.gameOver();
-        }
-
-        gasDisplay.updateGas();
     }
 
     public void updateMoney(int diff) {

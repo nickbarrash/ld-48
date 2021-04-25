@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class GasDisplay : MonoBehaviour
 {
-    Player player;
-    public Slider gasSlider;
+    //Player player;
+    //public Slider gasSlider;
 
-    private void Awake() {
-        player = FindObjectOfType<Player>();
-    }
+    //private void Awake() {
+    //    player = FindObjectOfType<Player>();
+    //}
 
-    public void updateGas() {
-        gasSlider.value = Mathf.InverseLerp(0, player.maxGas, player.gas);
-    }
+    //public void updateGas() {
+    //    gasSlider.value = Mathf.InverseLerp(0, player.maxGas, player.gas);
+    //}
 }
