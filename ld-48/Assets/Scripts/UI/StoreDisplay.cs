@@ -36,4 +36,18 @@ public class StoreDisplay : MonoBehaviour
             GameManager.instance.player.updateMoney(-1 * HULL_UPGRADE_PRICE);
         }
     }
+
+    public void buyBomb() {
+        if (GameManager.instance.player.money > BOMB_PRICE) {
+            GameManager.instance.player.updateBombs(1);
+            GameManager.instance.player.updateMoney(-1 * BOMB_PRICE);
+        }
+    }
+
+    public void buyScan() {
+        if (GameManager.instance.player.money > SCAN_PRICE) {
+            GameManager.instance.player.updateScans(1);
+            GameManager.instance.player.updateMoney(-1 * SCAN_PRICE);
+        }
+    }
 }

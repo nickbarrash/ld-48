@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     };
 
     HealthDisplay healthDisplay;
-    GasDisplay gasDisplay;
     MoneyDisplay moneyDisplay;
     DepthDisplay depthDisplay;
 
@@ -50,7 +49,6 @@ public class Player : MonoBehaviour
         scanCount = INITIAL_SCANS;
 
         healthDisplay = GameObject.Find("HUD/PlayerAttributesSection/HealthSection").GetComponent<HealthDisplay>();
-        gasDisplay = FindObjectOfType<GasDisplay>();
         moneyDisplay = FindObjectOfType<MoneyDisplay>();
         depthDisplay = FindObjectOfType<DepthDisplay>();
     }

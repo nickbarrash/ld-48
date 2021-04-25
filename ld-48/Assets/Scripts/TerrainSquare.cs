@@ -44,6 +44,12 @@ public class TerrainSquare : MonoBehaviour
     public HashSet<TERRAIN_TYPE> DANGEROUS = new HashSet<TERRAIN_TYPE> {
         TERRAIN_TYPE.DENSE_ROCK,
         TERRAIN_TYPE.GAS_POCKET,
+
+        TERRAIN_TYPE.SPIDER,
+        TERRAIN_TYPE.ROCKMAN,
+        TERRAIN_TYPE.WORM,
+        TERRAIN_TYPE.MR_NATAS,
+        TERRAIN_TYPE.BALROG
     };
 
     public HashSet<TERRAIN_TYPE> LOOT = new HashSet<TERRAIN_TYPE> {
