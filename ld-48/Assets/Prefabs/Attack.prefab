@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 15}
+  m_AnchoredPosition: {x: 300, y: 9}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2579956864331306713
@@ -194,6 +194,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a3f5f92ca06a547ba9da2bb44f9365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack:
+    attackName: 
+    description: 
+    enemyDamage: 0
+    selfDamage: 0
+    cooldown: 0
+    effects: []
+    killDamageBonus: 0
   attackButton: {fileID: 8723081335018545629}
   attackNameLabel: {fileID: 4270140843879860083}
   descriptionLabel: {fileID: 7869716180037120911}
@@ -593,7 +601,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 15}
+  m_AnchoredPosition: {x: 220, y: 9}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4711992324281747303
@@ -726,7 +734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: -15}
+  m_AnchoredPosition: {x: 220, y: -9}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2213618283936332197
@@ -992,7 +1000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -15}
+  m_AnchoredPosition: {x: 300, y: -9}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5636905716355275860

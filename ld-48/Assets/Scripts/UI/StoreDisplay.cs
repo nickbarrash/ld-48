@@ -9,10 +9,13 @@ public class StoreDisplay : MonoBehaviour
     int REPAIR_PRICE = 25;
     int HULL_UPGRADE_PRICE = 150;
     int EARTHQUAKE_PRICE = 16000;
-    int LIQUIFACTION_PRICE = 5000;
+    int LIQUEFACTION_PRICE = 5000;
 
     bool purchasedEarthquake = false;
-    bool purchasedLiquifaction = false;
+    bool purchasedLiquefaction = false;
+
+    public GameObject earthquakeItem;
+    public GameObject liquefactionItem;
 
     private void Start() {
         setVisible(false);
@@ -48,6 +51,24 @@ public class StoreDisplay : MonoBehaviour
         if (GameManager.instance.player.money > SCAN_PRICE) {
             GameManager.instance.player.updateScans(1);
             GameManager.instance.player.updateMoney(-1 * SCAN_PRICE);
+        }
+    }
+
+    public void buyEarthquake() {
+        if (GameManager.instance.player.money > EARTHQUAKE_PRICE && !purchasedEarthquake) {
+            purchasedEarthquake = true;
+            earthquakeItem.SetActive(false);
+            GameManager.instance.player.addAttack(Attack.earthquake());
+            GameManager.instance.player.updateMoney(-1 * EARTHQUAKE_PRICE);
+        }
+    }
+
+    public void buyLiquefaction() {
+        if (GameManager.instance.player.money > LIQUEFACTION_PRICE && !purchasedLiquefaction) {
+            purchasedLiquefaction = true;
+            liquefactionItem.SetActive(false);
+            GameManager.instance.player.addAttack(Attack.liquefaction());
+            GameManager.instance.player.updateMoney(-1 * LIQUEFACTION_PRICE);
         }
     }
 }

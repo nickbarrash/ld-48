@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -34,17 +35,28 @@ public class ChallengerDisplay : MonoBehaviour
     }
 
     public void applyStatuses(Attack attack, bool isSelf) {
-        //if (attack.effects != null && attack.effects.Count > 0) {
-        //    activeEffects.Add(new StatusEffect {
-        //        activeTurns = attack.effects[0].activeTurns,
-        //        selfAttackMultiple = attack.effects[0].enemyAttackMultiple
-        //    });
-        //}
+        if (attack.effects != null && attack.effects.Count > 0) {
+            activeEffects.Add(new StatusEffect {
+                activeTurns = attack.effects[0].activeTurns,
+                selfAttackMultiple = isSelf ? attack.effects[0].selfAttackMultiple : attack.effects[0].enemyAttackMultiple
+            });
+            computeMultiplier();
+        }
     }
 
     public void cooldown() {
         attacks.cooldown();
-        // TODO: status effects
+        cooldownStatusEffects();
+    }
+
+    private void cooldownStatusEffects() {
+        foreach(var effect in activeEffects) {
+            effect.activeTurns--;
+        }
+
+        activeEffects = activeEffects.Where(e => e.activeTurns > 0).ToList();
+
+        computeMultiplier();
     }
 
     public void initEnemy(Enemy enemy) {

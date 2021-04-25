@@ -47,7 +47,7 @@ public class Attack
             cooldown = 4,
             effects = new List<StatusEffect> {
                 new StatusEffect {
-                    activeTurns = 3,
+                    activeTurns = 4,
                     enemyAttackMultiple = 4,
                     selfAttackMultiple = 4,
                 }
@@ -58,14 +58,14 @@ public class Attack
 
     public static Attack liquefaction() {
         return new Attack {
-            attackName = "Earthquake",
+            attackName = "Liquefaction",
             description = "Reduce enemy damage by 5x for 3 turns",
             enemyDamage = 0,
             selfDamage = 0,
-            cooldown = 6,
+            cooldown = 5,
             effects = new List<StatusEffect> {
                 new StatusEffect {
-                    activeTurns = 3,
+                    activeTurns = 4,
                     enemyAttackMultiple = 0.2f,
                     selfAttackMultiple = 1,
                 }

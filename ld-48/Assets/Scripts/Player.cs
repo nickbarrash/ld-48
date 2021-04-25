@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     private void Awake() {
         maxHealth = INITAL_MAX_HEALTH;
         health = INITAL_MAX_HEALTH;
-        money = INITIAL_MONEY;
         bombCount = INITIAL_BOMBS;
         scanCount = INITIAL_SCANS;
 
@@ -54,6 +53,8 @@ public class Player : MonoBehaviour
     }
 
     private void Start() {
+        money = GameManager.instance.DEBUG ? 25000 : INITIAL_MONEY;
+
         updateMoney(0);
         updateHealth(0);
         updateScans(0);
@@ -112,5 +113,9 @@ public class Player : MonoBehaviour
         money += diff;
 
         moneyDisplay.updateMoney();
+    }
+
+    public void addAttack(Attack newAttack) {
+        attacks.Add(newAttack);
     }
 }

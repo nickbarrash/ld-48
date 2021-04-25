@@ -41,7 +41,7 @@ public class AttacksCombatDisplay : MonoBehaviour
     }
 
     public Attack getRandomAttack() {
-        var attackList = attacks.Where(a => a.isUsable()).ToList();
+        var attackList = attacks.Where(a => !a.isOnCooldown()).ToList();
         if (attackList.Count <= 0) {
             return null;
         }

@@ -23,11 +23,6 @@ public class AttackDisplay : MonoBehaviour
     bool isEnemy;
 
     int cooldown = 0;
-    
-
-    public bool isUsable() {
-        return cooldown <= 0;
-    }
 
     public void setAttack(Attack attack, bool isEnemy) {
         this.attack = attack;
@@ -47,7 +42,7 @@ public class AttackDisplay : MonoBehaviour
     }
 
     public void setTurn(bool isMyTurn) {
-        attackButton.interactable = isMyTurn;
+        attackButton.interactable = isMyTurn && !isOnCooldown();
     }
 
     public void decrementCooldown() {
@@ -56,8 +51,26 @@ public class AttackDisplay : MonoBehaviour
         }
     }
 
+    public bool isOnCooldown() {
+        return cooldown > 0;
+    }
+
+    public void cooldownAffordance() {
+        if (cooldown <= 0) {
+            onCooldownPanel.SetActive(false);
+            readyPanel.SetActive(true);
+            return;
+        }
+
+        cooldownRemainingValue.text = cooldown.ToString();
+
+        onCooldownPanel.SetActive(true);
+        readyPanel.SetActive(false);
+    }
+
     public void doAttack() {
         combat.attack(attack, isEnemy);
         cooldown = attack.cooldown;
+        cooldownAffordance();
     }
 }

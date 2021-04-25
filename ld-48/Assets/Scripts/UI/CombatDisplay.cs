@@ -40,6 +40,7 @@ public class CombatDisplay : MonoBehaviour
                 enemyDisplay.applyStatuses(attack, true);
                 playerDisplay.attackPlayer(attack, enemyDisplay.attackMultiplier);
             }
+            enemyDisplay.cooldown();
         }
 
         isPlayersTurn = !isPlayersTurn;
