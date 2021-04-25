@@ -143,6 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902232494707182630}
   - component: {fileID: 6495122555377181224}
+  - component: {fileID: 5918191215367484490}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -181,6 +182,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689247895812118641}
   m_CullTransparentMesh: 0
+--- !u!114 &5918191215367484490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689247895812118641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a3f5f92ca06a547ba9da2bb44f9365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackButton: {fileID: 8723081335018545629}
+  attackNameLabel: {fileID: 4270140843879860083}
+  descriptionLabel: {fileID: 7869716180037120911}
+  damageValue: {fileID: 1566282214409678932}
+  cooldownValue: {fileID: 96542027131404739}
+  cooldownRemainingValue: {fileID: 8774593526378646603}
+  onCooldownPanel: {fileID: 5300460052679151683}
+  readyPanel: {fileID: 1772254652605362532}
 --- !u!1 &1772254652605362532
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +263,7 @@ GameObject:
   - component: {fileID: 7150234061548805880}
   - component: {fileID: 8723081335018545629}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AttackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,8 +449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_AnchoredPosition: {x: -130, y: 0}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4932423963391895346
 CanvasRenderer:
@@ -805,7 +826,7 @@ GameObject:
   - component: {fileID: 4465352200690656451}
   - component: {fileID: 4270140843879860083}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AttackNameLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,7 +1114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 390, y: 0}
+  m_AnchoredPosition: {x: 300, y: 0}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4005543241017680423
@@ -1256,7 +1277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cooldown Remaining: '
+  m_text: 'Cooldown: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

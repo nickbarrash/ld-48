@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public int gas;
 
-    List<Attack> attacks = new List<Attack> {
+    public List<Attack> attacks = new List<Attack> {
         Attack.drill()
     };
 
@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
             GameManager.instance.gameOver();
         }
 
-        healthDisplay.updateHealth();
+        healthDisplay.updateHealth(maxHealth, health);
     }
 
     private void updateGas(int diff) {
