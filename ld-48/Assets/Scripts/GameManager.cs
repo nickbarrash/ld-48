@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public CombatDisplay combatDisplay;
     public CatalogDisplay catalogDisplay;
 
+    public GameObject gameOverWinPanel;
+    public GameObject gameOverLosePanel;
+
     TerrainGrid grid;
     CameraManager cameraManager;
     Camera mainCam;
@@ -91,8 +94,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void gameOver() {
-        Debug.Log("GAME OVER!!");
+    public void gameOver(bool isWin) {
     }
 
     public void startCombat(Enemy enemy) {

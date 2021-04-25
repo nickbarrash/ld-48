@@ -114,8 +114,9 @@ public class Player : MonoBehaviour
 
     public void updateHealth(int diff) {
         health += diff;
+        health = Mathf.Min(health, maxHealth);
         if (health <= 0) {
-            GameManager.instance.gameOver();
+            GameManager.instance.gameOver(false);
         }
         healthDisplay.updateHealth(maxHealth, health);
     }

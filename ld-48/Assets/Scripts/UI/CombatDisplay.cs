@@ -79,5 +79,8 @@ public class CombatDisplay : MonoBehaviour
         gameObject.SetActive(false);
         GameManager.instance.player.attacks.First(a => a.attackName == "Drill").enemyDamage += 1;
         ToastManager.instance.showMessage($"Successfully killed {enemyDisplay.enemy.enemyName}. Your drill's damage has increased by 1");
+        if (enemyDisplay.enemy.enemyName == "Balrog") {
+            GameManager.instance.gameOver(true);
+        }
     }
 }
