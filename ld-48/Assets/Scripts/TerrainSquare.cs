@@ -63,13 +63,18 @@ public class TerrainSquare : MonoBehaviour
     public DisplayValueManager displayValue;
 
     public TMP_Text debugText;
+    public TMP_Text contentsLabel;
     public GameObject excavated;
     public GameObject unexcavated;
+    public GameObject contents;
     public Button selectButton;
 
     public Color COLOR_OSCILATE_1;
     public Color COLOR_OSCILATE_2;
     public float OSCILATION_RATE;
+
+    [HideInInspector]
+    public bool isScanned = false;
 
     ColorBlock tmpButtonColorBlock;
 
@@ -128,6 +133,7 @@ public class TerrainSquare : MonoBehaviour
         setExcavatedAffordances(state == STATE.EXCAVATED);
         setButtonEnabled();
         setDebug();
+        setContents();
     }
 
     private void setDebug() {
@@ -135,6 +141,15 @@ public class TerrainSquare : MonoBehaviour
             debugText.text = $"{type}";
         } else {
             debugText.text = "";
+        }
+    }
+
+    private void setContents() {
+        if (isScanned && isScanable()) {
+            contents.SetActive(true);
+            contentsLabel.text = $"{type}";
+        } else {
+            contents.SetActive(false);
         }
     }
 
@@ -149,6 +164,14 @@ public class TerrainSquare : MonoBehaviour
 
     private bool isButtonEnabled() {
         return state == STATE.UNEXCAVATED && accessibleNeighbors().FirstOrDefault(n => n.state == STATE.EXCAVATED) != null;
+    }
+
+    private bool isScanable() {
+        return state == STATE.UNEXCAVATED;
+    }
+
+    private bool isBombable() {
+        return state == STATE.UNEXCAVATED;
     }
 
     public void setButtonEnabled() {
@@ -178,8 +201,39 @@ public class TerrainSquare : MonoBehaviour
     public void excavate() {
         processType();
         setState(STATE.EXCAVATED);
-        foreach(var n in neighbors()) {
+        updateNeighborAffordances();
+    }
+
+    public void updateNeighborAffordances() {
+        foreach (var n in neighbors()) {
             n.setAffordances();
+        }
+    }
+
+    public void scan() {
+        if (isScanable() && GameManager.instance.player.scanCount > 0) {
+            isScanned = true;
+            setAffordances();
+            GameManager.instance.player.updateScans(-1);
+        }
+    }
+
+    public void bomb() {
+        if (isBombable() && GameManager.instance.player.bombCount > 0) {
+            GameManager.instance.player.processDepth(y);
+            GameManager.instance.player.updateBombs(-1);
+            setState(STATE.EXCAVATED);
+            updateNeighborAffordances();
+        }
+    }
+
+    public void act() {
+        if (GameManager.instance.actionType == GameManager.CLICK_ACTION_TYPE.EXCAVATE) {
+            excavate();
+        } else if (GameManager.instance.actionType == GameManager.CLICK_ACTION_TYPE.SCAN) {
+            scan();
+        } else if (GameManager.instance.actionType == GameManager.CLICK_ACTION_TYPE.BOMB) {
+            bomb();
         }
     }
 

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public enum CLICK_ACTION_TYPE {
+        EXCAVATE,
+        SCAN,
+        BOMB
+    }
+
     public static GameManager instance;
 
     const float SCROLL_FACTOR = 50f;
@@ -15,6 +21,8 @@ public class GameManager : MonoBehaviour
     Camera mainCam;
     [HideInInspector]
     public Player player;
+
+    public CLICK_ACTION_TYPE actionType = CLICK_ACTION_TYPE.EXCAVATE;
 
     public const int X_OFF = TerrainGrid.GRID_X / 2;
     public const int Y_OFF = -2;
@@ -45,6 +53,18 @@ public class GameManager : MonoBehaviour
         grid.generate();
         cameraManager.setPosition(X_OFF, Y_OFF);
         combatDisplay.gameObject.SetActive(false);
+    }
+
+    public void setExcavationAction() {
+        actionType = CLICK_ACTION_TYPE.EXCAVATE;
+    }
+
+    public void setBombAction() {
+        actionType = CLICK_ACTION_TYPE.BOMB;
+    }
+
+    public void setScanAction() {
+        actionType = CLICK_ACTION_TYPE.SCAN;
     }
 
     public void setDisplayTypeBio() {

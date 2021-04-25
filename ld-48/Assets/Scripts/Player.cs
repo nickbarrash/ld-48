@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     const int INITAL_MAX_HEALTH = 100;
     const int INITIAL_MONEY = 100;
+    const int INITIAL_BOMBS = 1;
+    const int INITIAL_SCANS = 2;
 
     const int DEPTH_MULTIPLE = 25;
 
@@ -27,10 +31,23 @@ public class Player : MonoBehaviour
     MoneyDisplay moneyDisplay;
     DepthDisplay depthDisplay;
 
+    public Button scanButton;
+    public Button bombButton;
+
+    public TMP_Text scanButtonLabel;
+    public TMP_Text bombButtonLabel;
+
+    public ExcavateTypeUI excavateButtonManager;
+
+    public int bombCount;
+    public int scanCount;
+
     private void Awake() {
         maxHealth = INITAL_MAX_HEALTH;
         health = INITAL_MAX_HEALTH;
         money = INITIAL_MONEY;
+        bombCount = INITIAL_BOMBS;
+        scanCount = INITIAL_SCANS;
 
         healthDisplay = GameObject.Find("HUD/PlayerAttributesSection/HealthSection").GetComponent<HealthDisplay>();
         gasDisplay = FindObjectOfType<GasDisplay>();
@@ -41,6 +58,10 @@ public class Player : MonoBehaviour
     private void Start() {
         updateMoney(0);
         updateHealth(0);
+        updateScans(0);
+        updateBombs(0);
+
+        excavateButtonManager.setSelectedExcavation();
     }
 
     public void processMineAction(TerrainSquare.TERRAIN_TYPE minedType) {
@@ -56,6 +77,28 @@ public class Player : MonoBehaviour
 
     public void processDepth(int y) {
         setDepth(y);
+    }
+
+    public void updateScans(int diff) {
+        scanCount += diff;
+        scanButtonLabel.text = $"Scan ({scanCount})";
+        scanButton.interactable = scanCount > 0;
+
+        if (scanCount <= 0 && GameManager.instance.actionType == GameManager.CLICK_ACTION_TYPE.SCAN) {
+            GameManager.instance.actionType = GameManager.CLICK_ACTION_TYPE.EXCAVATE;
+        }
+        excavateButtonManager.setSelectedExcavation();
+    }
+
+    public void updateBombs(int diff) {
+        bombCount += diff;
+        bombButtonLabel.text = $"Bomb ({bombCount})";
+        bombButton.interactable = bombCount > 0;
+
+        if (bombCount <= 0 && GameManager.instance.actionType == GameManager.CLICK_ACTION_TYPE.BOMB) {
+            GameManager.instance.actionType = GameManager.CLICK_ACTION_TYPE.EXCAVATE;
+        }
+        excavateButtonManager.setSelectedExcavation();
     }
 
     public void updateHealth(int diff) {
