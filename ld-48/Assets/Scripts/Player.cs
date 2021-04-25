@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
         Attack.drill()
     };
 
-
     HealthDisplay healthDisplay;
     GasDisplay gasDisplay;
     MoneyDisplay moneyDisplay;
@@ -78,7 +77,7 @@ public class Player : MonoBehaviour
         healthDisplay.updateHealth(maxHealth, health);
     }
 
-    private void updateGas(int diff) {
+    public void updateGas(int diff) {
         gas += diff;
         if (gas <= 0) {
             GameManager.instance.gameOver();
@@ -87,7 +86,7 @@ public class Player : MonoBehaviour
         gasDisplay.updateGas();
     }
 
-    private void updateMoney(int diff) {
+    public void updateMoney(int diff) {
         money += diff;
 
         moneyDisplay.updateMoney();
