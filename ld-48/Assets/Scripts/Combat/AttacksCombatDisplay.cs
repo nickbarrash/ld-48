@@ -40,11 +40,12 @@ public class AttacksCombatDisplay : MonoBehaviour
         }
     }
 
-    public Attack getRandomAttack() {
+    public AttackDisplay getRandomAttack() {
         var attackList = attacks.Where(a => !a.isOnCooldown()).ToList();
+        Debug.Log($"avaiable attacks: {attackList.Count}");
         if (attackList.Count <= 0) {
             return null;
         }
-        return attackList[Random.Range(0, attackList.Count - 1)].attack;
+        return attackList[Random.Range(0, attackList.Count)];
     }
 }

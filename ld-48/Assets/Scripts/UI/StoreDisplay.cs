@@ -34,8 +34,8 @@ public class StoreDisplay : MonoBehaviour
 
     public void buyHullUpgrade() {
         if (GameManager.instance.player.money > HULL_UPGRADE_PRICE) {
-            GameManager.instance.player.updateHealth(20);
             GameManager.instance.player.maxHealth += 20;
+            GameManager.instance.player.updateHealth(20);
             GameManager.instance.player.updateMoney(-1 * HULL_UPGRADE_PRICE);
         }
     }

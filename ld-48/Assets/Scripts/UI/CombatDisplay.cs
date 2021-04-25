@@ -33,13 +33,21 @@ public class CombatDisplay : MonoBehaviour
                 enemyDisplay.applyStatuses(attack, false);
                 enemyDisplay.attackEnemy(attack, playerDisplay.attackMultiplier);
             }
-            playerDisplay.cooldown();
         } else {
             if (attack != null) {
                 playerDisplay.applyStatuses(attack, false);
                 enemyDisplay.applyStatuses(attack, true);
                 playerDisplay.attackPlayer(attack, enemyDisplay.attackMultiplier);
             }
+        }
+
+        endAttack();
+    }
+
+    public void endAttack() {
+        if (isPlayersTurn) {
+            playerDisplay.cooldown();
+        } else {
             enemyDisplay.cooldown();
         }
 
@@ -57,7 +65,14 @@ public class CombatDisplay : MonoBehaviour
 
     private IEnumerator delayedEnemyAttack() {
         yield return new WaitForSeconds(ENEMY_ATTACK_DELAY);
-        attack(enemyDisplay.attacks.getRandomAttack(), true);
+        AttackDisplay enemyAttack = enemyDisplay.attacks.getRandomAttack();
+        if (enemyDisplay.attacks.getRandomAttack() != null) {
+            Debug.Log($"attack: {enemyAttack.attack.attackName}");
+            enemyAttack.doAttack();
+        } else {
+            Debug.Log("null attack");
+            endAttack();
+        }
     }
 
     public void playerVictory() {

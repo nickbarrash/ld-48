@@ -49,6 +49,7 @@ public class AttackDisplay : MonoBehaviour
         if (cooldown > 0) {
             cooldown--;
         }
+        cooldownAffordance();
     }
 
     public bool isOnCooldown() {

@@ -105,7 +105,6 @@ public class Player : MonoBehaviour
         if (health <= 0) {
             GameManager.instance.gameOver();
         }
-
         healthDisplay.updateHealth(maxHealth, health);
     }
 
