@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class TerrainSquare : MonoBehaviour
 {
-    const float CONTENTS_DISPLAY_TIME = 3f;
+    const float CONTENTS_DISPLAY_TIME = 2f;
 
     public enum STATE {
         EXCAVATED,
