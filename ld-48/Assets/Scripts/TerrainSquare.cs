@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class TerrainSquare : MonoBehaviour
 {
+    const float CONTENTS_DISPLAY_TIME = 3f;
+
     public enum STATE {
         EXCAVATED,
         UNEXCAVATED
@@ -64,12 +66,13 @@ public class TerrainSquare : MonoBehaviour
     public STATE state;
     //public TerrainInfoTiles infoTiles;
     public DisplayValueManager displayValue;
+    public ContentsDisplay contentsDisplay;
 
     public TMP_Text debugText;
     public TMP_Text contentsLabel;
     public GameObject excavated;
     public GameObject unexcavated;
-    public GameObject contents;
+    //public GameObject contents;
     public Button selectButton;
 
     public Color COLOR_OSCILATE_1;
@@ -136,7 +139,7 @@ public class TerrainSquare : MonoBehaviour
         setExcavatedAffordances(state == STATE.EXCAVATED);
         setButtonEnabled();
         setDebug();
-        setContents();
+        //setContents();
     }
 
     private void setDebug() {
@@ -147,14 +150,14 @@ public class TerrainSquare : MonoBehaviour
         }
     }
 
-    private void setContents() {
-        if (isScanned && isScanable()) {
-            contents.SetActive(true);
-            contentsLabel.text = $"{type}";
-        } else {
-            contents.SetActive(false);
-        }
-    }
+    //private void setContents() {
+    //    if (isScanned && isScanable()) {
+    //        contents.SetActive(true);
+    //        contentsLabel.text = $"{type}";
+    //    } else {
+    //        contents.SetActive(false);
+    //    }
+    //}
 
     private void setExcavatedAffordances(bool isExcavated) {
         excavated.SetActive(isExcavated);
@@ -199,12 +202,20 @@ public class TerrainSquare : MonoBehaviour
 
         type = newType;
         state = STATE.UNEXCAVATED;
+        contentsDisplay.setContents(type);
     }
 
     public void excavate() {
         processType();
         setState(STATE.EXCAVATED);
+        StartCoroutine(showContents());
         updateNeighborAffordances();
+    }
+
+    public IEnumerator showContents() {
+        contentsDisplay.displaySprite(true);
+        yield return new WaitForSeconds(CONTENTS_DISPLAY_TIME);
+        contentsDisplay.displaySprite(false);
     }
 
     public void updateNeighborAffordances() {

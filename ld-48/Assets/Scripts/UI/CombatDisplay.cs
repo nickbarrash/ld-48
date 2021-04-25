@@ -67,10 +67,8 @@ public class CombatDisplay : MonoBehaviour
         yield return new WaitForSeconds(ENEMY_ATTACK_DELAY);
         AttackDisplay enemyAttack = enemyDisplay.attacks.getRandomAttack();
         if (enemyDisplay.attacks.getRandomAttack() != null) {
-            Debug.Log($"attack: {enemyAttack.attack.attackName}");
             enemyAttack.doAttack();
         } else {
-            Debug.Log("null attack");
             endAttack();
         }
     }
