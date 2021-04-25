@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     const float SCROLL_FACTOR = 50f;
 
+    public CombatDisplay combatDisplay;
+
     TerrainGrid grid;
     CameraManager cameraManager;
     Camera mainCam;
@@ -61,7 +63,6 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            Debug.Log(mainCam.aspect);
             mouseDownPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         }
 
@@ -80,5 +81,9 @@ public class GameManager : MonoBehaviour
                 mainCam.orthographicSize = 15;
             }
         }
+    }
+
+    public void startCombat(Enemy enemy) {
+        combatDisplay.startCombat(enemy);
     }
 }

@@ -185,6 +185,11 @@ public class TerrainSquare : MonoBehaviour
     public void processType() {
         GameManager.instance.player.processMineAction(type);
         GameManager.instance.player.processDepth(y);
+
+        var enemy = Config.instance.getMineAction(type).enemy;
+        if (enemy.Count > 0) {
+            GameManager.instance.startCombat(enemy[0]);
+        }
     }
 
     private void Update() {

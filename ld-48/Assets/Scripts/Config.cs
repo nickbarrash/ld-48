@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class MineAction {
     public TerrainSquare.TERRAIN_TYPE type;
     public int damage;
     public int money;
-    public Enemy enemy;
+    public List<Enemy> enemy;
 }
 
 public class Config : MonoBehaviour

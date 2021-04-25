@@ -31,6 +31,7 @@ public class TerrainGrid : MonoBehaviour {
             TerrainSquare.TERRAIN_TYPE.GOLD,
             TerrainSquare.TERRAIN_TYPE.PLATINUM,
             TerrainSquare.TERRAIN_TYPE.DIAMOND,
+            TerrainSquare.TERRAIN_TYPE.SPIDER,
         };
 
         grid = new TerrainSquare[GRID_X, GRID_Y];
