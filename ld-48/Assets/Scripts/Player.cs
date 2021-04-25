@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
         maxGas = INITAL_MAX_GAS;
         gas = INITIAL_GAS;
 
-        healthDisplay = FindObjectOfType<HealthDisplay>();
+        healthDisplay = GameObject.Find("HUD/PlayerAttributesSection/HealthSection").GetComponent<HealthDisplay>();
         gasDisplay = FindObjectOfType<GasDisplay>();
         moneyDisplay = FindObjectOfType<MoneyDisplay>();
         depthDisplay = FindObjectOfType<DepthDisplay>();
