@@ -116,10 +116,11 @@ public class TerrainSquare : MonoBehaviour
 
         displayValue.setValues(
             unexcavatedNeighbors().Where(t => DANGEROUS.Contains(t.type)).Count(),
-            unexcavatedNeighbors().Where(t => LOOT.Contains(t.type)).Count()
+            unexcavatedNeighbors().Where(t => LOOT.Contains(t.type)).Count(),
+            unexcavatedNeighbors().Where(t => COMBAT.Contains(t.type)).Count()
         );
 
-        displayValue.showValue(GameManager.instance.displayDanger);
+        displayValue.showValue(GameManager.instance.displayType);
     }
 
     public void setAffordances() {

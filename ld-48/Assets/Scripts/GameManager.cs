@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 
     public bool DEBUG;
 
-    public bool displayDanger = true;
+    [HideInInspector]
+    public DisplayValueManager.DISPLAY_VALUE_TYPE displayType = DisplayValueManager.DISPLAY_VALUE_TYPE.DANGER;
 
     Vector3 mouseDownPos;
 
@@ -45,15 +46,22 @@ public class GameManager : MonoBehaviour
         cameraManager.setPosition(X_OFF, Y_OFF);
     }
 
-    public void toggleDisplayType() {
-        setDisplayType(!displayDanger);
+    public void setDisplayTypeBio() {
+        setDisplayType(DisplayValueManager.DISPLAY_VALUE_TYPE.BIO);
     }
 
-    public void setDisplayType(bool isDanger) {
-        displayDanger = isDanger;
+    public void setDisplayTypeLoot() {
+        setDisplayType(DisplayValueManager.DISPLAY_VALUE_TYPE.LOOT);
+    }
 
-        foreach(var dvm in FindObjectsOfType<DisplayValueManager>()) {
-            dvm.showValue(displayDanger);
+    public void setDisplayTypeDanger() {
+        setDisplayType(DisplayValueManager.DISPLAY_VALUE_TYPE.DANGER);
+    }
+
+    public void setDisplayType(DisplayValueManager.DISPLAY_VALUE_TYPE type) {
+        displayType = type;
+        foreach (var dvm in FindObjectsOfType<DisplayValueManager>()) {
+            dvm.showValue(displayType);
         }
     }
 

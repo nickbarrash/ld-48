@@ -2,16 +2,39 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayTypeUI : MonoBehaviour
 {
-    public TMP_Text typeLabel;
+    public Button danger;
+    public Button loot;
+    public Button bio;
 
-    string DANGER_TEXT = "Dangers";
-    string LOOT_TEXT = "Loot";
+    private void Start() {
+        setSelectedType();
+    }
 
-    public void setTypeLabel() {
-        string text = GameManager.instance.displayDanger ? DANGER_TEXT : LOOT_TEXT;
-        typeLabel.text = $"Displaying:\nAdjacent {text}";
+    public void setSelectedType() {
+        danger.colors = inactive(danger.colors);
+        loot.colors = inactive(loot.colors);
+        bio.colors = inactive(bio.colors);
+
+        if (GameManager.instance.displayType == DisplayValueManager.DISPLAY_VALUE_TYPE.DANGER) {
+            danger.colors = active(danger.colors);
+        } else if (GameManager.instance.displayType == DisplayValueManager.DISPLAY_VALUE_TYPE.LOOT) {
+            loot.colors = active(loot.colors);
+        } else if (GameManager.instance.displayType == DisplayValueManager.DISPLAY_VALUE_TYPE.BIO) {
+            bio.colors = active(bio.colors);
+        }
+    }
+
+    private ColorBlock active(ColorBlock inBlock) {
+        inBlock.normalColor = Config.instance.ACTIVE_DISPLAY_TYPE_COLOR;
+        return inBlock;
+    }
+
+    private ColorBlock inactive(ColorBlock inBlock) {
+        inBlock.normalColor = Config.instance.INACTIVE_DISPLAY_TYPE_COLOR;
+        return inBlock;
     }
 }

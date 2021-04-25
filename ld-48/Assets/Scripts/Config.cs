@@ -27,6 +27,12 @@ public class Config : MonoBehaviour
     public Color LOOT_LOW;
     public Color LOOT_HIGH;
 
+    public Color BIO_LOW;
+    public Color BIO_HIGH;
+
+    public Color ACTIVE_DISPLAY_TYPE_COLOR;
+    public Color INACTIVE_DISPLAY_TYPE_COLOR;
+
     Dictionary<TerrainSquare.TERRAIN_TYPE, Color> terrainColorMap = new Dictionary<TerrainSquare.TERRAIN_TYPE, Color>();
     Dictionary<TerrainSquare.TERRAIN_TYPE, MineAction> terrainActionMap = new Dictionary<TerrainSquare.TERRAIN_TYPE, MineAction>();
 
