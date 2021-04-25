@@ -17,6 +17,12 @@ public class ToastManager : MonoBehaviour
         instance = this;
     }
 
+    public void clearChildren() {
+        foreach (Transform child in transform) {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
     public void showMessage(string message) {
         var newMessage = Instantiate(messagePrefab, transform);
         newMessage.name = $"ToastMessage_{++messageCount}";

@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         updateBombs(0);
 
         excavateButtonManager.setSelectedExcavation();
+        ToastManager.instance.clearChildren();
     }
 
     public void processMineAction(TerrainSquare.TERRAIN_TYPE minedType) {

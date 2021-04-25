@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         grid = FindObjectOfType<TerrainGrid>();
         player = FindObjectOfType<Player>();
         cameraManager = FindObjectOfType<CameraManager>();
+        ToastManager.instance.clearChildren();
     }
 
     private void Start() {

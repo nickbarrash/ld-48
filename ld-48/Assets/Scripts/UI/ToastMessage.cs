@@ -11,7 +11,6 @@ public class ToastMessage : MonoBehaviour
 
     public void setMessage(string message) {
         messageLabel.text = message;
-        Debug.Log($"showing {message}");
         clearMessage();
     }
 
@@ -21,7 +20,6 @@ public class ToastMessage : MonoBehaviour
 
     private IEnumerator delayedClearMessage() {
         yield return new WaitForSeconds(MESSAGE_TIME);
-        Debug.Log("destroyed");
         Destroy(this.gameObject);
     }
 }
