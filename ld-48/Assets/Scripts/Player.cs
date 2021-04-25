@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     const int INITIAL_BOMBS = 1;
     const int INITIAL_SCANS = 2;
 
-    const int DEPTH_MULTIPLE = 25;
+    const int DEPTH_MULTIPLE = 67;
 
     [HideInInspector]
     public int maxHealth;

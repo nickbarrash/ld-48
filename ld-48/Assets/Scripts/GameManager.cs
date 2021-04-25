@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     const float SCROLL_FACTOR = 50f;
 
     public CombatDisplay combatDisplay;
+    public CatalogDisplay catalogDisplay;
 
     TerrainGrid grid;
     CameraManager cameraManager;
@@ -53,6 +54,9 @@ public class GameManager : MonoBehaviour
         grid.generate();
         cameraManager.setPosition(X_OFF, Y_OFF);
         combatDisplay.gameObject.SetActive(false);
+
+        catalogDisplay.setPanel(0);
+        catalogDisplay.gameObject.SetActive(false);
     }
 
     public void setExcavationAction() {
