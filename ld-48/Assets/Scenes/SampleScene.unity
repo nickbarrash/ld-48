@@ -4094,6 +4094,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4178,6 +4179,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a6a6bfe9fc2c442885f14a6ac6e693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: test
+    clip: {fileID: 8300000, guid: edf62733dc0b4fe42b1b8ce21fd37fd1, type: 3}
+    volume: 1
+    pitch: 1.74
+    source: {fileID: 0}
+  - soundName: excavate
+    clip: {fileID: 8300000, guid: f7717caa3c4dd71439013d23af4c56af, type: 3}
+    volume: 1
+    pitch: 1.74
+    source: {fileID: 0}
+  - soundName: bad
+    clip: {fileID: 8300000, guid: 390a8303119a3df46a7c57d4c671f7ca, type: 3}
+    volume: 1
+    pitch: 1.35
+    source: {fileID: 0}
+  - soundName: encounter
+    clip: {fileID: 8300000, guid: 106847808b80b444ebcb4411055f4005, type: 3}
+    volume: 1
+    pitch: 1.74
+    source: {fileID: 0}
 --- !u!1 &532457024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5448,7 +5482,7 @@ MonoBehaviour:
     p: 0.04
   p15_30:
   - type: 1
-    p: 0.1
+    p: 0.13
   - type: 2
     p: 0.04
   - type: 8
@@ -5467,9 +5501,9 @@ MonoBehaviour:
     p: 0.02
   p30_45:
   - type: 1
-    p: 0.1
+    p: 0.15
   - type: 2
-    p: 0.1
+    p: 0.2
   - type: 9
     p: 0.08
   - type: 10

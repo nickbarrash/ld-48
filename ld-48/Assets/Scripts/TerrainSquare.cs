@@ -206,6 +206,13 @@ public class TerrainSquare : MonoBehaviour
     }
 
     public void excavate() {
+        if (LOOT.Contains(type)) {
+            AudioManager.instance.play("excavate");
+        } else if (COMBAT.Contains(type)) {
+            AudioManager.instance.play("encounter");
+        } else if (DANGEROUS.Contains(type)) {
+            AudioManager.instance.play("bad");
+        }
         processType();
         setState(STATE.EXCAVATED);
         StartCoroutine(showContents());
