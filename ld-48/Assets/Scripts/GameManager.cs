@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void gameOver(bool isWin) {
         gameOverWinPanel.SetActive(isWin);
-        gameOverWinPanel.SetActive(!isWin);
+        gameOverLosePanel.SetActive(!isWin);
     }
 
     public void startCombat(Enemy enemy) {
