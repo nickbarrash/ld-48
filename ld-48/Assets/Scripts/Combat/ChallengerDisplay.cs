@@ -1,8 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
+[Serializable]
+public class EnemyIcon {
+    public TerrainSquare.TERRAIN_TYPE type;
+    public Image icon;
+    public string match;
+}
+
 
 public class ChallengerDisplay : MonoBehaviour
 {
@@ -19,6 +29,9 @@ public class ChallengerDisplay : MonoBehaviour
     public HealthDisplay health;
 
     List<StatusEffect> activeEffects = new List<StatusEffect>();
+
+    public List<EnemyIcon> icons;
+    public GameObject icon;
 
     public void attackEnemy(Attack attack, float multiplier) {
         currentEnemyHealth -= (int)(attack.enemyDamage * multiplier);
@@ -59,6 +72,14 @@ public class ChallengerDisplay : MonoBehaviour
         computeMultiplier();
     }
 
+    public void hideIcons() {
+        foreach(var i in icons) {
+            if (i.icon != null) {
+                i.icon.gameObject.SetActive(false);
+            }
+        }
+    }
+
     public void initEnemy(Enemy enemy) {
         isEnemy = true;
         this.enemy = enemy;
@@ -69,6 +90,12 @@ public class ChallengerDisplay : MonoBehaviour
         health.updateHealth(enemy.health, currentEnemyHealth);
         challengerName.text = enemy.enemyName;
         computeMultiplier();
+
+        hideIcons();
+        var icon = icons.FirstOrDefault(i => i.match == enemy.enemyName);
+        if (icon != null && icon.icon != null) {
+            icon.icon.gameObject.SetActive(true);
+        }
     }
 
     public void initPlayer() {
@@ -79,6 +106,7 @@ public class ChallengerDisplay : MonoBehaviour
         health.updateHealth(GameManager.instance.player.maxHealth, GameManager.instance.player.health);
         challengerName.text = "Your Drilling Rig";
         computeMultiplier();
+        hideIcons();
     }
 
     public void computeMultiplier() {

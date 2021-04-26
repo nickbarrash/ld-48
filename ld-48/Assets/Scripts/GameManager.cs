@@ -113,6 +113,19 @@ public class GameManager : MonoBehaviour
             var delta = nextMousePos - mouseDownPos;
             mouseDownPos = nextMousePos;
             grid.transform.position += new Vector3(delta.x, delta.y, 0);
+            if (grid.transform.position.x > 15) {
+                grid.transform.position = new Vector3(15, grid.transform.position.y, grid.transform.position.z);
+            }
+            if (grid.transform.position.x < -15) {
+                grid.transform.position = new Vector3(-15, grid.transform.position.y, grid.transform.position.z);
+            }
+
+            if (grid.transform.position.y > 55) {
+                grid.transform.position = new Vector3(grid.transform.position.x, 55, grid.transform.position.z);
+            }
+            if (grid.transform.position.y < -5) {
+                grid.transform.position = new Vector3(grid.transform.position.x, -5, grid.transform.position.z);
+            }
         }
         
         if (Input.mouseScrollDelta.y != 0) {

@@ -227,6 +227,7 @@ public class TerrainSquare : MonoBehaviour
     public void scan() {
         if (!isScanned && isScanable() && GameManager.instance.player.scanCount > 0) {
             isScanned = true;
+            contentsDisplay.displaySprite(true);
             setAffordances();
             ToastManager.instance.showMessage($"Scanned {Config.instance.getTerrainName(type)}");
             GameManager.instance.player.updateScans(-1);
@@ -235,6 +236,7 @@ public class TerrainSquare : MonoBehaviour
 
     public void bomb() {
         if (isBombable() && GameManager.instance.player.bombCount > 0) {
+            StartCoroutine(showContents());
             GameManager.instance.player.processDepth(y);
             GameManager.instance.player.updateBombs(-1);
             setState(STATE.EXCAVATED);
